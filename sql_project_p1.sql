@@ -54,23 +54,23 @@ ORDER BY sale_date;
 SELECT category, SUM(total_sale) AS net_sale, count(*) AS total_orders FROM retail_sales
 GROUP BY  category;
 
---	4.	Write a SQL query to find the average age of customers 
+--4.	Write a SQL query to find the average age of customers 
 --		who purchased items from the 'Beauty' category.:
 SELECT category,AVG(age) FROM retail_sales
 WHERE category = 'Beauty'
 GROUP BY category;
 
 
---	5.	Write a SQL query to find all transactions where the total_sale is greater than 1000 :
+--5.	Write a SQL query to find all transactions where the total_sale is greater than 1000 :
 SELECT * FROM retail_sales
 WHERE total_sale > 1000;
 
---	6.	Write a SQL query to find the total number of transactions (transaction_id) 
+--6.	Write a SQL query to find the total number of transactions (transaction_id) 
 --		made by each gender in each category.:
 SELECT gender, category ,count(*) FROM retail_sales
 GROUP BY gender, category;
 
---	7.	Write a SQL query to calculate the average sale for each month.
+--7.	Write a SQL query to calculate the average sale for each month.
 --		Find out best selling month in each year:
 SELECT 
 	EXTRACT (YEAR FROM sale_date) as year,
@@ -82,14 +82,14 @@ GROUP BY 1,2;
 
 
 
---	8.	Write a SQL query to find the top 5 customers based on the highest total sales **:
+--8.Write a SQL query to find the top 5 customers based on the highest total sales **:
 SELECT customer_id,sum(total_sale) AS total_sale
 FROM retail_saleS
 GROUP BY customer_id
 ORDER BY total_sale DESC
 LIMIT 5;
 
---	9.	Write a SQL query to find the number of unique customers who purchased items from each category.
+--9.Write a SQL query to find the number of unique customers who purchased items from each category.
 SELECT 
 		category,
 		COUNT(DISTINCT customer_id) as unique_customer
@@ -97,16 +97,16 @@ FROM retail_sales
 GROUP BY 1;
 
 
---	10.	Write a SQL query to create each shift and number of orders (Example Morning <12,
+--10.Write a SQL query to create each shift and number of orders (Example Morning <12,
 --		Afternoon Between 12 & 17, Evening >17):
 
 SELECT 
-		CASE 
-			WHEN EXTRACT (HOUR FROM sale_time) <12 THEN 'Morning'
-			WHEN EXTRACT ( HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
-			ELSE 'Evening'
-			END AS shift,
-			count(*)
+	CASE 
+		WHEN EXTRACT (HOUR FROM sale_time) <12 THEN 'Morning'
+		WHEN EXTRACT ( HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+		ELSE 'Evening'
+		END AS shift,
+		count(*)
 FROM retail_sales
 GROUP BY shift
 ORDER BY 2;
